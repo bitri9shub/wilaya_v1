@@ -19,6 +19,25 @@ services:
       retries: 5
     # Later-on when necessary I'll add volumes
 
+  # Configuration server
+  config-server:
+    build:
+      context: ./services/config-server
+      dockerfile: Dockerfile
+    container_name: wilaya_config_server
+    ports:
+      - "9001:9001"
+    networks:
+      - private-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9001/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
 
 # Networks
 networks:
