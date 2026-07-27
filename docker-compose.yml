@@ -1,0 +1,28 @@
+services:
+  # Database
+  postgres:
+    image: postgres:18-alpine
+    container_name: postgresql
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: wilaya_db
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - private-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d wilaya_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Later-on when necessary I'll add volumes
+
+
+# Networks
+networks:
+  private-network:
+    driver: bridge
+
+# Volumes
