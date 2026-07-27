@@ -1,3 +1,6 @@
+# Note: je fais du port mapping sur tout les services, pour tester si les
+# services sont healthy avec /health que founit spring actuator (ops).
+
 services:
   # Database
   postgres:
@@ -17,9 +20,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    # Later-on when necessary I'll add volumes
+    # Later-on when necessary. I'll add volumes
 
-  # Configuration server
+  # Configuration Server
   config-server:
     build:
       context: ./services/config-server
@@ -29,11 +32,27 @@ services:
       - "9001:9001"
     networks:
       - private-network
-    depends_on:
-      postgres:
-        condition: service_healthy
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9001/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # Discovery Server
+  discovery-server:
+    build:
+      context: ./services/discovery-server
+      dockerfile: Dockerfile
+    container_name: wilaya_discovery_server
+    ports:
+      - "8761:8761"
+    networks:
+      - private-network
+    depends_on:
+      config-server:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 5
