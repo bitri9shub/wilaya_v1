@@ -1,0 +1,46 @@
+\contentsline {section}{\numberline {1}Utilisateurs, rôles et circuit de validation}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Acteurs et rôles du système}{2}{subsection.2}%
+\contentsline {subsubsection}{\numberline {1.1.1}Utilisateur (agent)}{2}{subsubsection.3}%
+\contentsline {subsubsection}{\numberline {1.1.2}Superviseur de direction}{2}{subsubsection.4}%
+\contentsline {subsubsection}{\numberline {1.1.3}Responsable de direction}{2}{subsubsection.5}%
+\contentsline {subsubsection}{\numberline {1.1.4}Opérateur télécom}{3}{subsubsection.6}%
+\contentsline {subsubsection}{\numberline {1.1.5}Administrateur système}{3}{subsubsection.7}%
+\contentsline {subsubsection}{\numberline {1.1.6}Logique d'ensemble du circuit}{3}{subsubsection.8}%
+\contentsline {subsection}{\numberline {1.2}Cycle de vie d'une demande}{4}{subsection.9}%
+\contentsline {subsection}{\numberline {1.3}Notifications}{5}{subsection.18}%
+\contentsline {subsection}{\numberline {1.4}Historique et justification des demandes}{5}{subsection.19}%
+\contentsline {subsection}{\numberline {1.5}Communication externe (opérateur télécom)}{5}{subsection.20}%
+\contentsline {section}{\numberline {2}Architecture technique}{6}{section.21}%
+\contentsline {subsection}{\numberline {2.1}Vue d'ensemble}{6}{subsection.22}%
+\contentsline {subsection}{\numberline {2.2}Composants}{8}{subsection.24}%
+\contentsline {subsubsection}{\numberline {2.2.1}API Gateway}{8}{subsubsection.25}%
+\contentsline {subsubsection}{\numberline {2.2.2}auth-service}{8}{subsubsection.26}%
+\contentsline {paragraph}{Modèle de données}{8}{paragraph*.27}%
+\contentsline {paragraph}{DTOs -- Auth API (REST)}{9}{paragraph*.29}%
+\contentsline {paragraph}{DTOs -- gRPC internes}{9}{paragraph*.31}%
+\contentsline {subsubsection}{\numberline {2.2.3}fleet-service}{10}{subsubsection.33}%
+\contentsline {paragraph}{Modèle de données}{10}{paragraph*.34}%
+\contentsline {paragraph}{DTOs -- Fleet API (REST)}{11}{paragraph*.36}%
+\contentsline {paragraph}{DTOs -- Operator API (REST)}{12}{paragraph*.38}%
+\contentsline {paragraph}{DTOs -- gRPC vers auth-service}{12}{paragraph*.40}%
+\contentsline {subsubsection}{\numberline {2.2.4}notification-service}{13}{subsubsection.42}%
+\contentsline {subsubsection}{\numberline {2.2.5}Stack technique}{13}{subsubsection.43}%
+\contentsline {paragraph}{Framework applicatif}{13}{paragraph*.44}%
+\contentsline {paragraph}{Passerelle et routage}{13}{paragraph*.45}%
+\contentsline {paragraph}{Sécurité}{13}{paragraph*.46}%
+\contentsline {paragraph}{Découverte de services et configuration}{13}{paragraph*.47}%
+\contentsline {paragraph}{Communication inter-services}{13}{paragraph*.48}%
+\contentsline {paragraph}{Messagerie asynchrone}{14}{paragraph*.49}%
+\contentsline {paragraph}{Notifications push}{14}{paragraph*.50}%
+\contentsline {paragraph}{Persistance des données}{14}{paragraph*.51}%
+\contentsline {paragraph}{Conteneurisation}{14}{paragraph*.52}%
+\contentsline {subsubsection}{\numberline {2.2.6}Table de routage (API Gateway)}{14}{subsubsection.53}%
+\contentsline {paragraph}{Ordre d'évaluation des routes}{15}{paragraph*.55}%
+\contentsline {paragraph}{Filtres appliqués par route}{15}{paragraph*.56}%
+\contentsline {subsubsection}{\numberline {2.2.7}Table des endpoints par service}{15}{subsubsection.57}%
+\contentsline {paragraph}{auth-service — Auth API (\texttt {/api/auth/**})}{15}{paragraph*.58}%
+\contentsline {paragraph}{auth-service — Administration (\texttt {/api/admin/**})}{15}{paragraph*.60}%
+\contentsline {paragraph}{fleet-service — Fleet API (\texttt {/api/**})}{16}{paragraph*.62}%
+\contentsline {paragraph}{fleet-service — Operator API (\texttt {/operator/**})}{16}{paragraph*.64}%
+\contentsline {paragraph}{notification-service}{16}{paragraph*.66}%
+\contentsline {paragraph}{Interface asynchrone (récapitulatif)}{17}{paragraph*.68}%

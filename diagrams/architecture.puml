@@ -1,0 +1,136 @@
+@startuml Municipal_Vehicle_Maintenance_Platform
+
+skinparam backgroundColor #FFFFFF
+skinparam defaultTextAlignment center
+skinparam roundcorner 10
+
+skinparam rectangle {
+    BorderColor #333333
+    FontStyle bold
+}
+
+skinparam component {
+    BackgroundColor #EAF2FB
+    BorderColor #4A90D9
+    FontSize 13
+}
+
+skinparam database {
+    BackgroundColor #E8F5E9
+    BorderColor #4CAF50
+}
+
+skinparam actor {
+    BackgroundColor #FFFFFF
+    BorderColor #333333
+}
+
+' ============================
+' ACTOR
+' ============================
+actor "User" as user
+
+' ============================
+' PRIVATE NETWORK
+' ============================
+rectangle "Private network" as privateNetwork {
+
+    rectangle "api-gateway\n(Exposed)" as gw_box #FFFFFF {
+        component "Gateway" as gateway
+    }
+
+    ' -------- BOX #1 (bordered) --------
+    rectangle "#1" as box1 #FFFFFF {
+
+        rectangle "fleet-service" as fleet_box #FFFFFF {
+            component "Operator API" as operatorApi
+            component "Fleet API" as fleetApi
+        }
+
+        rectangle "auth-service" as auth_box #FFFFFF {
+            component "Auth API" as authApi
+        }
+
+        rectangle "notification-service" as notif_box #FFFFFF {
+            component "Notification Worker" as notifWorker
+        }
+
+        rectangle "redis" as redis_box #FFFFFF {
+            component "Redis Queue" as redis
+        }
+
+        rectangle "postgresql" as pg_box #FFFFFF {
+            database "PostgreSQL" as postgres {
+                rectangle "schema: authentication" as schemaAuth #E8F5E9
+                rectangle "schema: fleet" as schemaFleet #E8F5E9
+            }
+        }
+    }
+
+    ' -------- OUTSIDE BOX #1 (as #2, no border) --------
+    together {
+        rectangle "config-service" as config_box #FFFFFF {
+            component "Config Server" as configServer
+        }
+
+        rectangle "discovery-service" as discovery_box #FFFFFF {
+            component "Discovery Server" as discoveryServer
+        }
+    }
+
+
+}
+
+' ============================
+' RELATIONS - USER -> GATEWAY
+' ============================
+user --> gw_box : HTTP
+
+' ============================
+' RELATIONS - GATEWAY ROUTING
+' ============================
+gw_box --> auth_box : /api/auth/**
+gw_box --> fleet_box : /api/operator/**
+gw_box --> fleet_box : /api/fleet/**
+
+' ============================
+' RELATIONS - CONFIG (#2 -> #1 and #2 -> #2)
+' ============================
+configServer ..> box1 : fetch config
+configServer ..> discoveryServer : fetch config
+
+' ============================
+' RELATIONS - DISCOVERY (#2 -> #1)
+' ============================
+discoveryServer ..> box1 : register / discover
+
+' ============================
+' RELATIONS - GATEWAY <-> DISCOVERY/CONFIG
+' ============================
+gw_box ..> config_box : fetch config
+gw_box ..> discovery_box : register / discover
+
+' ============================
+' RELATIONS - JWT VALIDATION
+' ============================
+gw_box ..> auth_box
+
+' ============================
+' RELATIONS - gRPC
+' ============================
+fleetApi ..> auth_box : gRPC\n(department contacts)
+fleetApi ..> notif_box : gRPC\n(device tokens)
+
+' ============================
+' RELATIONS - REDIS
+' ============================
+fleetApi ..> redis_box : publish
+notifWorker ..> redis_box : consume
+
+' ============================
+' RELATIONS - DATABASES
+' ============================
+authApi --> pg_box
+fleetApi --> pg_box
+
+@enduml

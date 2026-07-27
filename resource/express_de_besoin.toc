@@ -1,0 +1,10 @@
+\contentsline {section}{\numberline {1}La Wilaya}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Définition}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Organigramme}{2}{subsection.1.2}%
+\contentsline {section}{\numberline {2}Contexte et objectifs}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Objectif principal}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Objectifs secondaires}{3}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Périmètre du projet}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Périmètre organisationnel}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Périmètre fonctionnel (types de flottes couvertes)}{4}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Constat / problématique actuelle}{4}{section.4}%
